@@ -1,0 +1,69 @@
+==18051== Helgrind, a thread error detector
+==18051== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==18051== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==18051== Command: ./main-deadlock-global
+==18051== Parent PID: 10948
+==18051== 
+==18051== ---Thread-Announcement------------------------------------------
+==18051== 
+==18051== Thread #3 was created
+==18051==    at 0x49A3282: clone (clone.S:71)
+==18051==    by 0x48662EB: create_thread (createthread.c:101)
+==18051==    by 0x4867E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
+==18051==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x1093FD: main (main-deadlock-global.c:27)
+==18051== 
+==18051== ----------------------------------------------------------------
+==18051== 
+==18051== Thread #3: lock order "0x10C080 before 0x10C0C0" violated
+==18051== 
+==18051== Observed (incorrect) order is: acquisition of lock at 0x10C0C0
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x109298: worker (main-deadlock-global.c:15)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051== 
+==18051==  followed by a later acquisition of lock at 0x10C080
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x1092C7: worker (main-deadlock-global.c:16)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051== 
+==18051== Required order was established by acquisition of lock at 0x10C080
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x10923A: worker (main-deadlock-global.c:12)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051== 
+==18051==  followed by a later acquisition of lock at 0x10C0C0
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x109269: worker (main-deadlock-global.c:13)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051== 
+==18051==  Lock at 0x10C080 was first observed
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x10923A: worker (main-deadlock-global.c:12)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051==  Address 0x10c080 is 0 bytes inside data symbol "m1"
+==18051== 
+==18051==  Lock at 0x10C0C0 was first observed
+==18051==    at 0x483FEDF: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x109269: worker (main-deadlock-global.c:13)
+==18051==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18051==    by 0x4867608: start_thread (pthread_create.c:477)
+==18051==    by 0x49A3292: clone (clone.S:95)
+==18051==  Address 0x10c0c0 is 0 bytes inside data symbol "m2"
+==18051== 
+==18051== 
+==18051== 
+==18051== Use --history-level=approx or =none to gain increased speed, at
+==18051== the cost of reduced accuracy of conflicting-access information
+==18051== For lists of detected and suppressed errors, rerun with: -s
+==18051== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 7 from 7)

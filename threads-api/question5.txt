@@ -1,0 +1,61 @@
+==18138== Helgrind, a thread error detector
+==18138== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==18138== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==18138== Command: ./main-signal
+==18138== Parent PID: 10948
+==18138== 
+==18138== ---Thread-Announcement------------------------------------------
+==18138== 
+==18138== Thread #1 is the program's root thread
+==18138== 
+==18138== ---Thread-Announcement------------------------------------------
+==18138== 
+==18138== Thread #2 was created
+==18138==    at 0x49A3282: clone (clone.S:71)
+==18138==    by 0x48662EB: create_thread (createthread.c:101)
+==18138==    by 0x4867E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
+==18138==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18138==    by 0x109214: main (main-signal.c:15)
+==18138== 
+==18138== ----------------------------------------------------------------
+==18138== 
+==18138== Possible data race during read of size 4 at 0x10C014 by thread #1
+==18138== Locks held: none
+==18138==    at 0x109239: main (main-signal.c:16)
+==18138== 
+==18138== This conflicts with a previous write of size 4 by thread #2
+==18138== Locks held: none
+==18138==    at 0x1091C5: worker (main-signal.c:9)
+==18138==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18138==    by 0x4867608: start_thread (pthread_create.c:477)
+==18138==    by 0x49A3292: clone (clone.S:95)
+==18138==  Address 0x10c014 is 0 bytes inside data symbol "done"
+==18138== 
+==18138== ----------------------------------------------------------------
+==18138== 
+==18138== Possible data race during write of size 1 at 0x52771A5 by thread #1
+==18138== Locks held: none
+==18138==    at 0x48488A6: mempcpy (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18138==    by 0x49137B1: _IO_new_file_xsputn (fileops.c:1236)
+==18138==    by 0x49137B1: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==18138==    by 0x4908677: puts (ioputs.c:40)
+==18138==    by 0x10924E: main (main-signal.c:18)
+==18138==  Address 0x52771a5 is 21 bytes inside a block of size 1,024 alloc'd
+==18138==    at 0x483C893: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18138==    by 0x4905E83: _IO_file_doallocate (filedoalloc.c:101)
+==18138==    by 0x491604F: _IO_doallocbuf (genops.c:347)
+==18138==    by 0x49150AF: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:745)
+==18138==    by 0x4913834: _IO_new_file_xsputn (fileops.c:1244)
+==18138==    by 0x4913834: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1197)
+==18138==    by 0x4908677: puts (ioputs.c:40)
+==18138==    by 0x1091C4: worker (main-signal.c:8)
+==18138==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==18138==    by 0x4867608: start_thread (pthread_create.c:477)
+==18138==    by 0x49A3292: clone (clone.S:95)
+==18138==  Block was alloc'd by thread #2
+==18138== 
+==18138== 
+==18138== Use --history-level=approx or =none to gain increased speed, at
+==18138== the cost of reduced accuracy of conflicting-access information
+==18138== For lists of detected and suppressed errors, rerun with: -s
+==18138== ERROR SUMMARY: 23 errors from 2 contexts (suppressed: 40 from 36)
